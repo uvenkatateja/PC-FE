@@ -87,8 +87,9 @@ const Navbar = () => {
             mode="horizontal" 
             selectedKeys={[]} 
             className={styles.menu}
+            style={{ visibility: 'visible', display: 'flex' }}
           >
-            <Menu.Item key="home" icon={<HomeOutlined />}>
+            <Menu.Item key="home" icon={<HomeOutlined />} style={{ display: 'flex', alignItems: 'center' }}>
               <Link to="/">Home</Link>
             </Menu.Item>
             {isAuthenticated && (

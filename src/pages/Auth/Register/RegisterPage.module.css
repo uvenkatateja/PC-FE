@@ -1,12 +1,52 @@
-.pageContainer {
+.registerContainer {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: calc(100vh - 80px);
   padding: 6rem 2rem 2rem;
-  background: #ffffff;
+  background: #FFFFFF;
   position: relative;
   width: 100%;
+  background-image: linear-gradient(135deg, rgba(255, 127, 80, 0.05) 25%, transparent 25%, transparent 50%, rgba(255, 127, 80, 0.05) 50%, rgba(255, 127, 80, 0.05) 75%, transparent 75%, transparent);
+  background-size: 40px 40px;
+}
+
+.contentRow {
+  width: 100%;
+  max-width: 1200px;
+}
+
+.animationColumn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.animationCaption {
+  text-align: center;
+  margin-top: -30px;
+  color: #222222;
+}
+
+.animationContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: center;
+  position: relative;
+  padding: 1rem;
+  transition: all 0.3s ease;
+}
+
+.animationCaption h3 {
+  color: #FF7F50;
+  margin-bottom: 8px;
+}
+
+.animationCaption p {
+  color: #3498DB;
 }
 
 .cardContainer {
@@ -14,15 +54,20 @@
   max-width: 450px;
 }
 
-.formContainer {
-  width: 100%;
-  max-width: 450px;
+.registerCard {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
   border-radius: 12px;
   overflow: hidden;
-  border: 1.5px solid #000000;
+  border-top: 4px solid #FF7F50;
+  border-bottom: 4px solid #3498DB;
   background: #ffffff;
   padding: 24px;
+  transition: all 0.3s ease;
+}
+
+.registerCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
 .formHeader {
@@ -41,7 +86,7 @@
 }
 
 .formFooter a {
-  color: #000000;
+  color: #FDB813;
   text-decoration: none;
   font-weight: 500;
 }
@@ -50,20 +95,52 @@
   text-decoration: underline;
 }
 
+.loginButton {
+  height: 48px;
+  border-radius: 30px;
+  border: 1.5px solid #3498DB;
+  color: #3498DB;
+  background: #ffffff;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.loginButton:hover {
+  background: #AED6F1;
+  color: #2874A6;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.2);
+}
+
 .submitButton {
   height: 48px;
-  border-radius: 6px;
-  background: #ffffff;
-  color: #000000;
-  border: 1.5px solid #000000;
+  border-radius: 30px;
+  background: #FF7F50;
+  color: #FFFFFF;
+  border: none;
   font-weight: 500;
+  box-shadow: 0 4px 12px rgba(255, 127, 80, 0.2);
+  transition: all 0.3s ease;
+}
+
+.submitButton:hover {
+  background: #E86A3E;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 127, 80, 0.3);
 }
 
 .backButtonContainer {
   position: absolute;
-  left: 3rem;
-  top: 7rem;
+  top: 20px;
+  left: 20px;
   z-index: 10;
+}
+
+.animationColumn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .backButton {
@@ -72,10 +149,10 @@
   gap: 8px;
   height: 40px;
   padding: 0 16px;
-  border-radius: 6px;
+  border-radius: 30px;
   background: #ffffff;
-  color: #000000;
-  border: 1.5px solid #000000;
+  color: #222222;
+  border: none;
   font-weight: 500;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   transition: all 0.3s;
@@ -88,20 +165,34 @@
 }
 
 /* Mobile responsive styles */
-@media (max-width: 768px) {
-  .pageContainer {
-    padding: 7rem 1rem 1rem;
+@media (max-width: 767px) {
+  .registerContainer {
+    padding: 5rem 1rem 1rem;
   }
   
-  .backButtonContainer {
-    left: 2rem;
-    top: 8rem;
+  .contentRow {
+    flex-direction: column-reverse;
+  }
+  
+  .animationColumn {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .animationContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 100%;
+  }
+  
+  .cardContainer {
+    width: 100%;
   }
 
-  .backButton {
-    height: 36px;
-    padding: 0 12px;
-    font-size: 14px;
+  .formHeader h2 {
+    font-size: 24px;
   }
   
   .formContainer {
@@ -124,7 +215,7 @@
 
 /* Extra small devices */
 @media (max-width: 480px) {
-  .pageContainer {
+  .registerContainer {
     padding: 8rem 0.75rem 0.75rem;
   }
   

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo, useCallback, lazy, Suspense } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { 
   Layout, 
@@ -14,7 +14,8 @@ import {
   Avatar, 
   BackTop,
   Carousel,
-  Image
+  Image,
+  Spin
 } from 'antd';
 import { 
   FormOutlined, 
@@ -115,23 +116,36 @@ const TestimonialCard = ({ emoji, name, location, testimonial }) => (
   </motion.div>
 );
 
+// DogLoader component for loading states
+const DogLoader = lazy(() => import('../../components/Loader/DogLoader'));
+
 // HomePage component
 const HomePage = () => {
   const { isAuthenticated } = useAuth();
   const [scrollY, setScrollY] = useState(0);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
 
+  // Track scroll position with useCallback for better performance
+  const handleScroll = useCallback(() => {
+    setScrollY(window.scrollY);
+  }, []);
+  
   // Track scroll position
   useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
-    
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, [handleScroll]);
+  
+  // Simulate image loading completion
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setImagesLoaded(true);
+    }, 1000);
+    return () => clearTimeout(timer);
   }, []);
 
-  // Features data
-  const features = [
+  // Features data - memoized to prevent unnecessary re-renders
+  const features = useMemo(() => [
     {
       icon: '📝',
       title: 'Register & Login',
@@ -153,23 +167,25 @@ const HomePage = () => {
       linkText: 'Join Community',
       linkTo: '/register'
     }
-  ];
+  ], []);
 
-  // Testimonials data
-  const testimonials = [
+  // Testimonials data - memoized to prevent unnecessary re-renders
+  const testimonials = useMemo(() => [
     {
       emoji: '🐕',
       name: 'Max\'s Return',
-      location: 'Sarah Johnson, New York',
-      testimonial: '"I lost Max during a storm and was devastated. Thanks to PetFinder, someone spotted him 3 miles away and contacted me immediately. We were reunited within hours!"'
+      quote: 'Thanks to this platform, we found our dog Max within 48 hours of posting!',
+      author: 'Sarah J.',
+      location: 'Boston, MA'
     },
     {
       emoji: '🐈',
-      name: 'Luna\'s Journey Home',
-      location: 'David Martinez, Los Angeles',
-      testimonial: '"Luna slipped out of our apartment and disappeared. Thanks to the amazing community on PetFinder, she was found safe and sound at a neighbor\'s garage. So grateful!"'
+      name: 'Whiskers Home',
+      quote: 'Our cat was missing for a week until someone on this site recognized her from our post.',
+      author: 'Michael T.',
+      location: 'Los Angeles, CA'
     }
-  ];
+  ], []);
 
   // Stats data
   const stats = [
@@ -183,21 +199,7 @@ const HomePage = () => {
     <Layout style={{ background: '#fff', minHeight: '100vh', paddingTop: '80px' }}>
       {/* Hero Section */}
       <div className={styles.heroSection}>
-        <div 
-          style={{ 
-            position: 'absolute', 
-            top: 0, 
-            left: 0, 
-            right: 0, 
-            bottom: 0,
-            opacity: 0.4,
-            transform: `translateY(${scrollY * 0.2}px)`,
-            backgroundImage: 'url("https://img.freepik.com/free-vector/abstract-white-shapes-background_79603-1362.jpg")',
-            backgroundSize: 'cover',
-            zIndex: 0
-          }} 
-        />
-        
+        <div className={styles.petPattern} />
         <div className={styles.container} style={{ position: 'relative', zIndex: 1 }}>
           <Row gutter={[48, 32]} align="middle">
             <Col xs={24} md={14}>
@@ -208,12 +210,12 @@ const HomePage = () => {
                     <span>Reuniting pets with their families</span>
                   </div>
                   
-                  <Title level={1} style={{ margin: '16px 0', fontWeight: 800, fontSize: 'clamp(2rem, 5vw, 3.5rem)' }}>
-                    Find Your Lost <Text style={{ color: '#333333' }}>Pet</Text> With Our Community
+                  <Title level={1} style={{ margin: '16px 0', fontWeight: 800, fontSize: 'clamp(2rem, 5vw, 3.5rem)', color: '#222222' }}>
+                    Your <span style={{ backgroundColor: '#FF7F50', padding: '0 15px', borderRadius: '20px', color: '#FFFFFF' }}>Pet Care</span> Center
                   </Title>
                   
-                  <Paragraph style={{ fontSize: '18px', color: 'rgba(0, 0, 0, 0.75)', maxWidth: '600px' }}>
-                    PetFinder helps reunite lost pets with their owners through our community-driven platform for reporting and finding missing pets.
+                  <Paragraph style={{ fontSize: '18px', color: '#222222', maxWidth: '600px' }}>
+                    We believe finding a reliable, professional pet sitter should be easy. So make sure every member of our Family gets the best care possible.
                   </Paragraph>
                   
                   <Space size="middle" wrap className={styles.buttonGroup}>
@@ -226,13 +228,16 @@ const HomePage = () => {
                     ) : (
                       <>
                         <Link to="/register">
-                          <Button size="large" type="primary" icon={<FormOutlined />} className={styles.primaryButton}>
-                            Report Missing Pet
+                          <Button size="large" className={styles.primaryButton} style={{ borderRadius: '30px' }}>
+                            <Space>
+                              <span role="img" aria-label="paw">🐾</span>
+                              Watch Now
+                            </Space>
                           </Button>
                         </Link>
                         <Link to="/login">
-                          <Button size="large" icon={<UserOutlined />} className={styles.secondaryButton}>
-                            Sign In
+                          <Button size="large" className={styles.secondaryButton} style={{ borderRadius: '30px' }}>
+                            Our Service
                           </Button>
                         </Link>
                       </>
@@ -240,32 +245,31 @@ const HomePage = () => {
                   </Space>
                   
                   {/* Stats counter */}
-                  <div className={styles.statCounter}>
-                    <Row gutter={[16, 16]}>
-                      <Col span={8}>
-                        <Statistic 
-                          title="Pets Found" 
-                          value={5243} 
-                          valueStyle={{ color: '#333333', fontWeight: 'bold' }}
-                          prefix={<HeartOutlined />} 
-                        />
+                  <div className={styles.statCounter} style={{ marginTop: '40px', borderRadius: '15px' }}>
+                    <Row align="middle">
+                      <Col>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                          <div style={{ marginRight: '10px' }}>
+                            <Text strong style={{ fontSize: '18px' }}>4k+</Text>
+                          </div>
+                          <div style={{ display: 'flex', alignItems: 'center' }}>
+                            <Avatar.Group>
+                              <Avatar src="https://randomuser.me/api/portraits/women/44.jpg" />
+                              <Avatar src="https://randomuser.me/api/portraits/men/47.jpg" />
+                              <Avatar src="https://randomuser.me/api/portraits/women/45.jpg" />
+                            </Avatar.Group>
+                            <Text style={{ marginLeft: '10px' }}>Satisfied Customers</Text>
+                          </div>
+                        </div>
                       </Col>
-                      <Col span={8}>
-                        <Statistic 
-                          title="Members" 
-                          value={10892} 
-                          valueStyle={{ color: '#52c41a', fontWeight: 'bold' }}
-                          prefix={<UserOutlined />} 
-                        />
-                      </Col>
-                      <Col span={8}>
-                        <Statistic 
-                          title="Success Rate" 
-                          value={95} 
-                          suffix="%" 
-                          valueStyle={{ color: '#333333', fontWeight: 'bold' }}
-                          prefix={<HomeOutlined />} 
-                        />
+                      <Col style={{ marginLeft: 'auto' }}>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                          <Text>Rating</Text>
+                          <div style={{ marginLeft: '10px', display: 'flex', alignItems: 'center' }}>
+                            <span role="img" aria-label="star" style={{ color: '#FF7F50', marginRight: '5px' }}>⭐</span>
+                            <Text strong>5.0</Text>
+                          </div>
+                        </div>
                       </Col>
                     </Row>
                   </div>
@@ -280,10 +284,19 @@ const HomePage = () => {
                 transition={{ duration: 0.7, delay: 0.2 }}
                 className={styles.profileImageWrapper}
               >
+                {!imagesLoaded ? (
+                  <div className={styles.imageLoader}>
+                    <Suspense fallback={<Spin size="large" />}>
+                      <DogLoader size="medium" showCaption={false} />
+                    </Suspense>
+                  </div>
+                ) : null}
                 <img 
                   src={profileImage} 
-                  alt="Pet Profile" 
-                  className={styles.profileImage}
+                  alt="Pet Care Profile" 
+                  className={`${styles.profileImage} ${imagesLoaded ? styles.imageLoaded : styles.imageLoading}`} 
+                  onLoad={() => setImagesLoaded(true)}
+                  loading="lazy"
                 />
               </motion.div>
             </Col>
@@ -306,8 +319,14 @@ const HomePage = () => {
         >
           <Row gutter={[24, 24]}>
             {features.map((feature, index) => (
-              <Col xs={24} md={8} key={index}>
-                <FeatureCard {...feature} />
+              <Col xs={24} sm={12} md={8} key={index}>
+                <FeatureCard 
+                  {...feature} 
+                  style={{
+                    animationDelay: `${index * 0.1}s`,
+                    animationFillMode: 'forwards'
+                  }}
+                />
               </Col>
             ))}
           </Row>
@@ -355,8 +374,14 @@ const HomePage = () => {
         >
           <Row gutter={[24, 24]}>
             {testimonials.map((testimonial, index) => (
-              <Col xs={24} md={12} key={index}>
-                <TestimonialCard {...testimonial} />
+              <Col xs={24} sm={12} md={8} key={index}>
+                <TestimonialCard 
+                  {...testimonial} 
+                  style={{
+                    animationDelay: `${index * 0.1}s`,
+                    animationFillMode: 'forwards'
+                  }}
+                />
               </Col>
             ))}
           </Row>

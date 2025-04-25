@@ -1,19 +1,22 @@
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
-import { Spin, Layout } from 'antd';
+import { Layout } from 'antd';
 import { Toaster } from 'react-hot-toast';
+import DogLoader from './components/Loader/DogLoader';
+import PageTransition from './components/PageTransition/PageTransition';
 
 // Import pages directly instead of using lazy loading
 import HomePage from './pages/Home/HomePage';
 import LoginPage from './pages/Auth/Login/LoginPage';
 import RegisterPage from './pages/Auth/Register/RegisterPage';
+import ForgotPasswordPage from './pages/Auth/ForgotPassword/ForgotPasswordPage';
 import DashboardPage from './pages/DashboardPage';
 import NotFoundPage from './pages/NotFoundPage';
 import Navbar from './pages/Navbar/Navbar';
 
 const { Content } = Layout;
 
-// Centralized loading component
+// Centralized loading component with dog animation
 const Loader = () => (
   <div 
     style={{ 
@@ -23,7 +26,7 @@ const Loader = () => (
       height: '60vh' 
     }}
   >
-    <Spin size="large" />
+    <DogLoader size="medium" />
   </div>
 );
 
@@ -79,22 +82,27 @@ const AppLayout = () => (
   <Layout style={{ minHeight: '100vh' }}>
     <Navbar />
     <Content style={{ background: '#fff' }}>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={
-          <PublicRoute><LoginPage /></PublicRoute>
-        } />
-        <Route path="/register" element={
-          <PublicRoute><RegisterPage /></PublicRoute>
-        } />
-        <Route path="/dashboard" element={
-          <ProtectedRoute><DashboardPage /></ProtectedRoute>
-        } />
-        <Route path="/profile" element={
-          <ProtectedRoute><DashboardPage tab="profile" /></ProtectedRoute>
-        } />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
+      <PageTransition>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={
+            <PublicRoute><LoginPage /></PublicRoute>
+          } />
+          <Route path="/register" element={
+            <PublicRoute><RegisterPage /></PublicRoute>
+          } />
+          <Route path="/forgot-password" element={
+            <PublicRoute><ForgotPasswordPage /></PublicRoute>
+          } />
+          <Route path="/dashboard" element={
+            <ProtectedRoute><DashboardPage /></ProtectedRoute>
+          } />
+          <Route path="/profile" element={
+            <ProtectedRoute><DashboardPage tab="profile" /></ProtectedRoute>
+          } />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </PageTransition>
     </Content>
     <Toaster position="top-right" toastOptions={toastOptions} />
   </Layout>
