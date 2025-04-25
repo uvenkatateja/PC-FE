@@ -1,0 +1,156 @@
+.backButtonContainer {
+  position: absolute;
+  left: 3rem;
+  top: 7rem;
+  z-index: 10;
+}
+
+.backButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #000000;
+  border: 1.5px solid #000000;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s;
+}
+
+.backButton:hover {
+  background: #f9f9f9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.loginContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 80px);
+  padding: 6rem 2rem 2rem;
+  background: #ffffff;
+  position: relative;
+  width: 100%;
+}
+
+.cardContainer {
+  width: 100%;
+  max-width: 450px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loginCard {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1.5px solid #000000;
+  background: #ffffff;
+  padding: 24px;
+}
+
+.formHeader {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.submitButton {
+  height: 48px;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #000000;
+  border: 1.5px solid #000000;
+  font-weight: 500;
+}
+
+.createAccountButton {
+  height: 48px;
+  border-radius: 6px;
+  border: 1.5px solid #000000;
+  color: #000000;
+  background: #ffffff;
+  font-weight: 500;
+}
+
+.passwordResetLink {
+  color: #000000;
+  font-weight: 500;
+}
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+  .loginContainer {
+    padding: 7rem 1rem 1rem;
+  }
+
+  .backButtonContainer {
+    left: 2rem;
+    top: 8rem;
+  }
+
+  .backButton {
+    height: 36px;
+    padding: 0 12px;
+    font-size: 14px;
+  }
+
+  .loginCard {
+    padding: 16px;
+    border-radius: 8px;
+  }
+
+  .formHeader h2 {
+    font-size: 20px !important;
+  }
+
+  .submitButton, 
+  .createAccountButton {
+    height: 44px;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+  .loginContainer {
+    padding: 8rem 0.75rem 0.75rem;
+  }
+
+  .backButtonContainer {
+    left: 1rem;
+    top: 9rem;
+  }
+
+  .backButton {
+    height: 32px;
+    padding: 0 10px;
+    font-size: 12px;
+  }
+
+  .loginCard {
+    padding: 12px;
+    border-radius: 6px;
+  }
+
+  .formHeader {
+    margin-bottom: 1.5rem;
+  }
+
+  .formHeader h2 {
+    font-size: 18px !important;
+  }
+
+  .submitButton, 
+  .createAccountButton {
+    height: 40px;
+  }
+
+  /* Handle the password reset link row for very small screens */
+  .passwordReset {
+    flex-direction: column;
+  }
+} 

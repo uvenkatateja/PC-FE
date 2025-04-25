@@ -1,0 +1,141 @@
+/* Navbar Module CSS */
+
+/* Logo styles */
+.logo {
+  display: flex; 
+  align-items: center; 
+  font-size: 1.5rem; 
+  font-weight: bold;
+  color: #333333;
+  transition: transform 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+}
+
+.logoEmoji {
+  margin-left: 8px;
+  font-size: 1.25rem;
+}
+
+/* Container styles */
+.navbarContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 10px 0;
+  background: transparent;
+  transition: all 0.3s ease;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  background: #ffffff;
+  box-shadow: none;
+  border: 1.5px solid #000000;
+  border-radius: 50px;
+  height: 60px;
+  transition: all 0.3s ease;
+  width: 80%;
+  max-width: 1000px;
+}
+
+/* Button styles */
+.navButton {
+  transition: all 0.3s ease;
+}
+
+.navButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.registerButton {
+  background: rgba(255, 255, 255, 0.5);
+  border: 1.5px solid #000000;
+  color: #000000;
+  box-shadow: none;
+  transition: all 0.3s ease;
+  border-radius: 50px;
+  font-weight: 500;
+}
+
+.registerButton:hover {
+  background: rgba(255, 255, 255, 1);
+  border-color: #000000;
+  color: #000000;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Menu styles */
+.menu {
+  border: none; 
+  background: transparent;
+  border-radius: 30px;
+  padding: 0 10px;
+}
+
+/* Avatar styles */
+.userAvatar {
+  background-color: rgba(240, 240, 240, 0.8);
+  color: #333333;
+  transition: all 0.3s ease;
+  border: 1px solid #000000;
+}
+
+.userAvatar:hover {
+  transform: scale(1.05);
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 1200px) {
+  .navbar {
+    width: 90%;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    width: 95%;
+  }
+
+  .logo {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .navbar {
+    padding: 0 15px;
+    border-radius: 30px;
+  }
+}
+
+/* Global overrides - must be used with :global() */
+:global(.ant-menu-horizontal > .ant-menu-item:hover),
+:global(.ant-menu-horizontal > .ant-menu-submenu:hover) {
+  color: #000000 !important;
+  background-color: rgba(240, 240, 240, 0.4);
+  backdrop-filter: blur(4px);
+  border-radius: 6px;
+}
+
+:global(.ant-menu-item.ant-menu-item-selected) {
+  color: #000000 !important;
+}
+
+:global(.ant-menu-horizontal > .ant-menu-item-selected::after),
+:global(.ant-menu-horizontal > .ant-menu-item::after),
+:global(.ant-menu-horizontal > .ant-menu-submenu::after) {
+  border-bottom: 2px solid #000000 !important;
+} 
