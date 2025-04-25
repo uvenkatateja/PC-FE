@@ -63,11 +63,12 @@ const RegisterPage = () => {
 
   return (
     <div className={styles.registerContainer}>
-      <div className={styles.backButtonContainer}>
+      <div className={styles.navBackButtonContainer}>
         <Link to="/">
           <Button 
             icon={<ArrowLeftOutlined />} 
             className={styles.backButton}
+            size="large"
           >
             Back to Home
           </Button>

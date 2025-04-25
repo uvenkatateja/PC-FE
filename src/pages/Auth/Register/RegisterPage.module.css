@@ -136,6 +136,13 @@
   z-index: 10;
 }
 
+.navBackButtonContainer {
+  position: absolute;
+  top: 80px; /* Positioned below the navbar */
+  left: 20px;
+  z-index: 10;
+}
+
 .animationColumn {
   display: flex;
   justify-content: center;

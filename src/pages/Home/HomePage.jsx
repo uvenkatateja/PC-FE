@@ -28,8 +28,11 @@ import {
   HomeOutlined
 } from '@ant-design/icons';
 import { motion } from 'framer-motion';
+import Lottie from 'lottie-react';
 import styles from './HomePage.module.css';
 import profileImage from '../../assets/profile.jpg';
+import PetCarousel from '../../components/Carousel/PetCarousel';
+import findPetsAnimation from '../../assets/findpets.json';
 
 const { Header, Content, Footer } = Layout;
 const { Title, Paragraph, Text } = Typography;
@@ -255,7 +258,10 @@ const HomePage = () => {
     warmBackground: '#FFF8F0',
     lighterOrange: '#FFE6D9',
     softCream: '#FFF6EC',
-    accentOrange: '#FF7F50'
+    accentOrange: '#FF7F50',
+    deepOrange: '#E86A3E',
+    softBlue: '#E6F7FF',
+    accentBlue: '#1890FF'
   };
 
   return (
@@ -268,9 +274,47 @@ const HomePage = () => {
         alignItems: 'center',
         width: '100%',
         padding: '80px 0 0',
-        marginTop: '0'
+        marginTop: '0',
+        position: 'relative',
+        overflow: 'hidden'
       }}>
         <div className={styles.petPattern} style={{ opacity: 0.4 }} />
+        
+        {/* Decorative elements */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0, x: -100 }}
+          animate={{ opacity: 0.6, scale: 1, x: 0 }}
+          transition={{ duration: 1, delay: 0.5 }}
+          style={{
+            position: 'absolute',
+            left: '5%',
+            top: '15%',
+            width: '120px',
+            height: '120px',
+            borderRadius: '50%',
+            background: colors.accentOrange,
+            filter: 'blur(40px)',
+            zIndex: 0
+          }}
+        />
+        
+        <motion.div 
+          initial={{ opacity: 0, scale: 0, x: 100 }}
+          animate={{ opacity: 0.5, scale: 1, x: 0 }}
+          transition={{ duration: 1, delay: 0.7 }}
+          style={{
+            position: 'absolute',
+            right: '10%',
+            bottom: '20%',
+            width: '150px',
+            height: '150px',
+            borderRadius: '50%',
+            background: colors.accentBlue,
+            filter: 'blur(50px)',
+            zIndex: 0
+          }}
+        />
+        
         <div className={styles.container} style={{ 
           position: 'relative', 
           zIndex: 1,
@@ -278,34 +322,82 @@ const HomePage = () => {
           maxWidth: '100%',
           padding: '0 2rem'
         }}>
-          <Row gutter={[48, 32]} align="middle" justify="center" style={{ width: '100%' }}>
-            <Col xs={24} md={14} lg={12}>
+          <Row gutter={[{ xs: 16, sm: 24, md: 32, lg: 48 }, { xs: 16, sm: 24, md: 32 }]} align="middle" justify="center" style={{ width: '100%' }}>
+            <Col xs={24} sm={24} md={14} lg={12}>
               <motion.div initial="hidden" animate="visible" variants={fadeIn} style={{ maxWidth: '800px', margin: '0 auto' }}>
                 <Space direction="vertical" size="large" style={{ width: '100%' }}>
-                  <div className={styles.tagBadge} style={{ background: colors.lighterOrange }}>
+                  <div className={styles.tagBadge} style={{ 
+                    background: `linear-gradient(90deg, ${colors.lighterOrange}, ${colors.softCream})`,
+                    boxShadow: '0 4px 15px rgba(255, 127, 80, 0.15)'
+                  }}>
                     <span>🐾</span>
                     <span>Reuniting pets with their families</span>
                   </div>
                   
-                  <Title level={1} style={{ margin: '24px 0', fontWeight: 800, fontSize: 'clamp(2.5rem, 6vw, 4rem)', color: '#222222' }}>
-                    Your <span style={{ backgroundColor: colors.accentOrange, padding: '0 15px', borderRadius: '20px', color: '#FFFFFF' }}>Pet Care</span> Center
+                  <Title level={1} style={{ 
+                    margin: '24px 0', 
+                    fontWeight: 800, 
+                    fontSize: 'clamp(2rem, 6vw, 4rem)', 
+                    color: '#222222', 
+                    wordBreak: 'break-word',
+                    lineHeight: 1.2,
+                    letterSpacing: '-0.02em'
+                  }}>
+                    Your <span style={{ 
+                      backgroundColor: colors.accentOrange, 
+                      padding: '0 15px', 
+                      borderRadius: '20px', 
+                      color: '#FFFFFF',
+                      boxShadow: '0 4px 12px rgba(255, 127, 80, 0.3)'
+                    }}>Pet Care</span> Center
                   </Title>
                   
-                  <Paragraph style={{ fontSize: 'clamp(16px, 2vw, 20px)', color: '#222222', maxWidth: '800px' }}>
+                  <Paragraph style={{ 
+                    fontSize: 'clamp(16px, 2vw, 20px)', 
+                    color: '#222222', 
+                    maxWidth: '800px',
+                    lineHeight: 1.6,
+                    marginBottom: '30px'
+                  }}>
                     We believe finding a reliable, professional pet sitter should be easy. So make sure every member of our Family gets the best care possible.
                   </Paragraph>
                   
                   <Space size="middle" wrap className={styles.buttonGroup}>
                     {isAuthenticated ? (
                       <Link to="/dashboard">
-                        <Button size="large" type="primary" icon={<DashboardOutlined />} style={{ background: colors.accentOrange, borderColor: colors.accentOrange, height: '50px', fontSize: '16px' }}>
+                        <Button 
+                          size="large" 
+                          type="primary" 
+                          icon={<DashboardOutlined />} 
+                          style={{ 
+                            background: `linear-gradient(90deg, ${colors.accentOrange}, ${colors.deepOrange})`, 
+                            borderColor: colors.accentOrange, 
+                            height: '50px', 
+                            fontSize: '16px',
+                            borderRadius: '30px',
+                            boxShadow: '0 6px 16px rgba(255, 127, 80, 0.3)',
+                            transition: 'all 0.3s ease'
+                          }}
+                          className={styles.primaryButton}
+                        >
                           View Dashboard
                         </Button>
                       </Link>
                     ) : (
                       <>
                         <Link to="/register">
-                          <Button size="large" className={styles.primaryButton} style={{ borderRadius: '30px', background: colors.accentOrange, borderColor: colors.accentOrange, height: '50px', fontSize: '16px' }}>
+                          <Button 
+                            size="large" 
+                            className={styles.primaryButton} 
+                            style={{ 
+                              borderRadius: '30px', 
+                              background: `linear-gradient(90deg, ${colors.accentOrange}, ${colors.deepOrange})`, 
+                              borderColor: colors.accentOrange, 
+                              height: '50px', 
+                              fontSize: '16px',
+                              boxShadow: '0 6px 16px rgba(255, 127, 80, 0.3)'
+                            }}
+                          >
                             <Space>
                               <span role="img" aria-label="paw">🐾</span>
                               Watch Now
@@ -313,7 +405,19 @@ const HomePage = () => {
                           </Button>
                         </Link>
                         <Link to="/login">
-                          <Button size="large" className={styles.secondaryButton} style={{ borderRadius: '30px', height: '50px', fontSize: '16px' }}>
+                          <Button 
+                            size="large" 
+                            className={styles.secondaryButton} 
+                            style={{ 
+                              borderRadius: '30px', 
+                              height: '50px', 
+                              fontSize: '16px',
+                              borderWidth: '2px',
+                              borderColor: colors.accentBlue,
+                              color: colors.accentBlue,
+                              boxShadow: '0 6px 16px rgba(24, 144, 255, 0.1)'
+                            }}
+                          >
                             Our Service
                           </Button>
                         </Link>
@@ -325,28 +429,31 @@ const HomePage = () => {
                   <div className={styles.statCounter} style={{ 
                     marginTop: '40px', 
                     borderRadius: '15px', 
-                    background: colors.softCream, 
+                    background: `linear-gradient(145deg, #ffffff, ${colors.softCream})`, 
                     borderColor: colors.lighterOrange,
-                    padding: '15px 20px'
+                    padding: '15px 20px',
+                    boxShadow: '0 10px 25px rgba(255, 127, 80, 0.1)',
+                    border: `1px solid ${colors.lighterOrange}`
                   }}>
                     <Row align="middle">
                       <Col>
                         <div style={{ display: 'flex', alignItems: 'center' }}>
                           <div style={{ marginRight: '10px' }}>
-                            <Text strong style={{ fontSize: '18px' }}>4k+</Text>
+                            <Text strong style={{ fontSize: '18px', color: colors.deepOrange }}>4k+</Text>
                           </div>
                           <div style={{ display: 'flex', alignItems: 'center' }}>
                             <Avatar.Group
                               maxCount={3}
                               maxStyle={{ 
-                                color: '#FF7F50', 
-                                backgroundColor: '#FFE6D9',
-                                border: '2px solid #fff'
+                                color: colors.accentOrange, 
+                                backgroundColor: colors.lighterOrange,
+                                border: '2px solid #fff',
+                                fontWeight: 'bold'
                               }}
                             >
                               <Avatar 
                                 style={{ 
-                                  backgroundColor: '#FF7F50', 
+                                  backgroundColor: colors.accentOrange, 
                                   border: '2px solid #fff',
                                   color: '#fff'
                                 }}
@@ -355,7 +462,7 @@ const HomePage = () => {
                               </Avatar>
                               <Avatar 
                                 style={{ 
-                                  backgroundColor: '#E86A3E', 
+                                  backgroundColor: colors.deepOrange, 
                                   border: '2px solid #fff',
                                   color: '#fff'
                                 }}
@@ -372,16 +479,16 @@ const HomePage = () => {
                                 M
                               </Avatar>
                             </Avatar.Group>
-                            <Text style={{ marginLeft: '10px' }}>Satisfied Customers</Text>
+                            <Text style={{ marginLeft: '10px', color: '#555' }}>Satisfied Customers</Text>
                           </div>
                         </div>
                       </Col>
                       <Col style={{ marginLeft: 'auto' }}>
                         <div style={{ display: 'flex', alignItems: 'center' }}>
-                          <Text>Rating</Text>
+                          <Text style={{ color: '#555' }}>Rating</Text>
                           <div style={{ marginLeft: '10px', display: 'flex', alignItems: 'center' }}>
-                            <span role="img" aria-label="star" style={{ color: '#FF7F50', marginRight: '5px' }}>⭐</span>
-                            <Text strong>5.0</Text>
+                            <span role="img" aria-label="star" style={{ color: colors.accentOrange, marginRight: '5px' }}>⭐</span>
+                            <Text strong style={{ color: colors.deepOrange }}>5.0</Text>
                           </div>
                         </div>
                       </Col>
@@ -391,17 +498,18 @@ const HomePage = () => {
               </motion.div>
             </Col>
             
-            <Col xs={24} md={10} lg={10}>
+            <Col xs={24} sm={24} md={10} lg={10}>
               <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.7, delay: 0.2 }}
+                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.2, type: "spring", stiffness: 100 }}
                 className={styles.profileImageWrapper}
                 style={{ 
                   maxWidth: '100%',
                   display: 'flex',
                   justifyContent: 'center',
-                  alignItems: 'center'
+                  alignItems: 'center',
+                  position: 'relative'
                 }}
               >
                 {!imagesLoaded ? (
@@ -411,6 +519,25 @@ const HomePage = () => {
                     </Suspense>
                   </div>
                 ) : null}
+                
+                {/* Decorative elements behind the image */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 0.7, scale: 1 }}
+                  transition={{ duration: 0.5, delay: 0.6 }}
+                  style={{
+                    position: 'absolute',
+                    width: '80%',
+                    height: '80%',
+                    borderRadius: '30% 70% 70% 30% / 30% 30% 70% 70%',
+                    background: `linear-gradient(45deg, ${colors.lighterOrange}, ${colors.softCream})`,
+                    zIndex: 0,
+                    top: '10%',
+                    left: '10%',
+                    filter: 'blur(2px)'
+                  }}
+                />
+                
                 <img 
                   src={profileImage} 
                   alt="Pet Care Profile" 
@@ -422,9 +549,43 @@ const HomePage = () => {
                     height: 'auto',
                     objectFit: 'contain',
                     borderRadius: '20px',
-                    boxShadow: '0 20px 40px rgba(0, 0, 0, 0.15)'
+                    boxShadow: '0 20px 40px rgba(0, 0, 0, 0.15)',
+                    position: 'relative',
+                    zIndex: 1
                   }}
                 />
+                
+                {/* Floating paw prints */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.8 }}
+                  style={{
+                    position: 'absolute',
+                    bottom: '-10px',
+                    right: '10%',
+                    fontSize: '28px',
+                    zIndex: 2
+                  }}
+                >
+                  🐾
+                </motion.div>
+                
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 1 }}
+                  style={{
+                    position: 'absolute',
+                    top: '10%',
+                    left: '5%',
+                    fontSize: '24px',
+                    zIndex: 2,
+                    transform: 'rotate(-20deg)'
+                  }}
+                >
+                  🐾
+                </motion.div>
               </motion.div>
             </Col>
           </Row>
@@ -432,7 +593,37 @@ const HomePage = () => {
       </div>
 
       {/* Features Section - Enhanced with better animations and improved layout */}
-      <Section style={{ background: '#fff', padding: '100px 0' }}>
+      <Section style={{ 
+        background: '#fff', 
+        padding: '100px 0',
+        position: 'relative',
+        overflow: 'hidden'
+      }}>
+        {/* Decorative background elements */}
+        <div style={{
+          position: 'absolute',
+          top: '5%',
+          right: '5%',
+          width: '200px',
+          height: '200px',
+          borderRadius: '30% 70% 70% 30% / 30% 30% 70% 70%',
+          background: colors.softBlue,
+          opacity: 0.1,
+          zIndex: 0
+        }} />
+        
+        <div style={{
+          position: 'absolute',
+          bottom: '10%',
+          left: '5%',
+          width: '150px',
+          height: '150px',
+          borderRadius: '60% 40% 30% 70% / 60% 30% 70% 40%',
+          background: colors.lighterOrange,
+          opacity: 0.1,
+          zIndex: 0
+        }} />
+        
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -481,9 +672,9 @@ const HomePage = () => {
           viewport={{ once: true, amount: 0.1 }}
           className={styles.featuresContainer}
         >
-          <Row gutter={[32, 48]} justify="center">
+          <Row gutter={[{ xs: 16, sm: 24, md: 32 }, { xs: 24, sm: 32, md: 48 }]} justify="center">
             {features.map((feature, index) => (
-              <Col xs={24} sm={12} md={index < 2 ? 12 : 12} key={index}>
+              <Col xs={24} sm={12} md={12} lg={index < 2 ? 12 : 12} key={index}>
                 <FeatureCard 
                   {...feature} 
                   index={index}
@@ -501,14 +692,14 @@ const HomePage = () => {
           >
             <Card className={styles.stepsCard}>
               <Title level={3} style={{ textAlign: 'center', marginBottom: '30px' }}>4 Simple Steps</Title>
-              <Row gutter={[30, 30]}>
+              <Row gutter={[{ xs: 15, sm: 20, md: 30 }, { xs: 15, sm: 20, md: 30 }]}>
                 {[
                   { number: '01', title: 'Create Account', desc: 'Sign up in seconds' },
                   { number: '02', title: 'Set Up Profile', desc: 'Add your pets\' details' },
                   { number: '03', title: 'Browse Services', desc: 'Find what you need' },
                   { number: '04', title: 'Get Started', desc: 'Enjoy the benefits' }
                 ].map((step, i) => (
-                  <Col xs={12} md={6} key={i}>
+                  <Col xs={12} sm={12} md={6} key={i}>
                     <motion.div 
                       className={styles.stepItem}
                       whileHover={{ y: -10, transition: { duration: 0.3 } }}
@@ -533,9 +724,9 @@ const HomePage = () => {
           viewport={{ once: true, amount: 0.2 }}
           variants={staggerContainer}
         >
-          <Row gutter={[32, 32]} justify="center">
+          <Row gutter={[{ xs: 16, sm: 24, md: 32 }, { xs: 16, sm: 24, md: 32 }]} justify="center">
             {stats.map((stat, index) => (
-              <Col xs={12} sm={6} key={index}>
+              <Col xs={12} sm={6} md={6} key={index}>
                 <motion.div variants={fadeIn} style={{ textAlign: 'center' }}>
                   <Statistic 
                     title={stat.title} 
@@ -564,9 +755,9 @@ const HomePage = () => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
         >
-          <Row gutter={[24, 24]}>
+          <Row gutter={[{ xs: 16, sm: 20, md: 24 }, { xs: 16, sm: 20, md: 24 }]}>
             {testimonials.map((testimonial, index) => (
-              <Col xs={24} sm={12} md={8} key={index}>
+              <Col xs={24} sm={12} md={8} lg={8} key={index}>
                 <TestimonialCard 
                   {...testimonial} 
                   style={{
@@ -589,29 +780,90 @@ const HomePage = () => {
           variants={fadeIn}
           className={styles.ctaContent}
         >
-          <Title level={2} style={{ fontWeight: 700 }}>Ready to find your lost pet?</Title>
           <Paragraph style={{ 
             fontSize: '18px', 
-            color: 'rgba(0, 0, 0, 0.65)', 
-            maxWidth: '600px', 
-            margin: '0 auto 32px' 
+            color: '#555', 
+            maxWidth: '700px', 
+            margin: '0 auto 30px',
+            lineHeight: 1.6
           }}>
-            Join our community today and increase the chances of finding your pet or help others find theirs.
+            Join thousands of pet owners who have successfully found their lost pets using our platform. Our community is growing every day!
           </Paragraph>
           
           {!isAuthenticated && (
-            <Space size="middle" wrap style={{ justifyContent: 'center' }}>
-              <Link to="/register">
-                <Button size="large" type="primary">
-                  Sign Up Now
-                </Button>
-              </Link>
-              <Link to="/login">
-                <Button size="large">
-                  Sign In
-                </Button>
-              </Link>
-            </Space>
+            <Row gutter={[24, 24]} align="middle" justify="center">
+              <Col xs={24} md={12} style={{ display: 'flex', justifyContent: 'center' }}>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                  style={{
+                    maxWidth: '300px', 
+                    width: '100%',
+                    marginBottom: '20px'
+                  }}
+                >
+                  <Lottie 
+                    animationData={findPetsAnimation} 
+                    loop={true}
+                    style={{ width: '100%' }}
+                  />
+                </motion.div>
+              </Col>
+              <Col xs={24} md={12}>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                >
+                  <Space direction="vertical" size="large" style={{ width: '100%' }}>
+                    <Title level={3} style={{ 
+                      fontWeight: 600, 
+                      color: colors.deepOrange,
+                      marginBottom: '16px'
+                    }}>
+                      Ready to find your lost pet?
+                    </Title>
+                    <Paragraph style={{ fontSize: '16px', marginBottom: '24px' }}>
+                      Create an account today and get access to our powerful pet finding tools and supportive community.
+                    </Paragraph>
+                    <Space size="middle" wrap style={{ justifyContent: 'flex-start' }}>
+                      <Link to="/register">
+                        <Button 
+                          size="large" 
+                          type="primary"
+                          style={{ 
+                            background: `linear-gradient(90deg, ${colors.accentOrange}, ${colors.deepOrange})`,
+                            borderColor: colors.accentOrange,
+                            height: '50px',
+                            borderRadius: '30px',
+                            boxShadow: '0 6px 16px rgba(255, 127, 80, 0.3)'
+                          }}
+                        >
+                          Sign Up Now
+                        </Button>
+                      </Link>
+                      <Link to="/login">
+                        <Button 
+                          size="large"
+                          style={{ 
+                            borderRadius: '30px',
+                            height: '50px',
+                            borderWidth: '2px',
+                            borderColor: colors.accentBlue,
+                            color: colors.accentBlue
+                          }}
+                        >
+                          Sign In
+                        </Button>
+                      </Link>
+                    </Space>
+                  </Space>
+                </motion.div>
+              </Col>
+            </Row>
           )}
         </motion.div>
       </Section>
@@ -625,7 +877,7 @@ const HomePage = () => {
       {/* Footer */}
       <Footer className={styles.footer}>
         <div className={styles.container}>
-          <Row gutter={[24, 40]}>
+          <Row gutter={[{ xs: 16, sm: 20, md: 24 }, { xs: 20, sm: 30, md: 40 }]}>
             <Col xs={24} sm={12} md={8} lg={6}>
               <div>
                 <Link to="/" className={styles.footerLogo}>
@@ -672,12 +924,12 @@ const HomePage = () => {
           <Row justify="space-between" align="middle">
             <Col xs={24} md={12} className={styles.footerLeft}>
               <Text className={styles.footerCopyright}>
-                © 2023 PetFinder. All rights reserved.
+                &copy; 2023 PetFinder. All rights reserved.
               </Text>
             </Col>
             <Col xs={24} md={12} className={styles.footerRight}>
               <Space size={16}>
-                {['📘', '🐦', '📷', '🎥'].map((icon, index) => (
+                {['📖', '🐦', '📷', '📺'].map((icon, index) => (
                   <a key={index} href="#" className={styles.socialIcon}>
                     <span role="img" aria-label={['facebook', 'twitter', 'instagram', 'youtube'][index]}>
                       {icon}

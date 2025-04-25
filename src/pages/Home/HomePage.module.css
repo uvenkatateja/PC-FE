@@ -624,9 +624,9 @@ html, body {
   width: 40px;
   height: 40px;
   border-radius: var(--border-radius-circle);
-  background: rgba(255, 255, 255, 0.1);
+  background: transparent;
   color: white;
-  font-size: 20px;
+  font-size: 24px;
   transition: var(--transition);
   position: relative;
   overflow: hidden;
@@ -824,6 +824,19 @@ html {
     padding: 80px 0 50px !important;
     min-height: auto !important;
   }
+  
+  .profileImageWrapper {
+    max-width: 90% !important;
+    margin: 0 auto;
+  }
+  
+  .featureCard {
+    padding: 20px;
+  }
+  
+  .stepsCard {
+    padding: 20px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -862,6 +875,21 @@ html {
     flex-direction: column;
     text-align: center;
     padding: 15px !important;
+  }
+  
+  /* Improve responsive layout for buttons */
+  .buttonGroup {
+    justify-content: center;
+  }
+  
+  /* Make footer more responsive */
+  .footerNav {
+    margin-bottom: 20px;
+  }
+  
+  /* Adjust testimonial cards */
+  .testimonialCard {
+    height: auto;
   }
 }
 
@@ -936,6 +964,40 @@ html {
   .carouselImageContainer {
     padding-top: 85%;
   }
+  
+  /* Improve typography on small screens */
+  .heroTitle {
+    font-size: 1.8rem;
+    margin: 16px 0;
+  }
+  
+  .heroDescription {
+    font-size: 15px;
+    margin-bottom: 20px;
+  }
+  
+  /* Improve button sizing for mobile */
+  .primaryButton, .secondaryButton {
+    padding: 6px 16px !important;
+    font-size: 14px !important;
+    height: auto !important;
+    min-height: 40px;
+  }
+  
+  /* Adjust footer elements for mobile */
+  .footerLogo {
+    font-size: 20px;
+  }
+  
+  .footerNav li {
+    margin-bottom: 8px;
+  }
+  
+  .socialIcon {
+    width: 35px;
+    height: 35px;
+    font-size: 16px;
+  }
 }
 
 /* Extra small screens */
@@ -974,6 +1036,21 @@ html {
     flex: 0 0 100% !important;
     max-width: 100% !important;
     margin-bottom: 10px;
+  }
+  
+  /* Improve small mobile layout */
+  .primaryButton, .secondaryButton {
+    padding: 4px 12px !important;
+    font-size: 13px !important;
+  }
+  
+  .iconContainer {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .featuresContainer {
+    padding: 0 5px;
   }
 }
 

@@ -36,6 +36,7 @@ import {
   UserOutlined
 } from '@ant-design/icons';
 import styles from './ForgotPasswordPage.module.css';
+import tortoiseAnimation from '../../../assets/tortoise.json';
 
 const { Title, Text, Paragraph } = Typography;
 const { Option } = Select;
@@ -679,7 +680,7 @@ const ForgotPasswordPage = () => {
                   <Button 
                     type="link" 
                     block
-                    onClick={() => window.location.href = '/auth/login'}
+                    onClick={() => window.location.href = '/login'}
                   >
                     Go to Login Page
                   </Button>
@@ -710,7 +711,7 @@ const ForgotPasswordPage = () => {
                 type="primary" 
                 size="large"
                 icon={<UserOutlined />}
-                onClick={() => window.location.href = '/auth/login'}
+                onClick={() => window.location.href = '/login'}
                 className={styles.submitButton}
                 style={{ marginTop: '24px' }}
               >
@@ -726,23 +727,16 @@ const ForgotPasswordPage = () => {
   };
 
   // State to track if tortoise animation is loaded
-  const [tortoiseAnimationData, setTortoiseAnimationData] = useState(null);
+  const [tortoiseAnimationData, setTortoiseAnimationData] = useState(tortoiseAnimation);
   
-  // Load the tortoise animation data
-  useEffect(() => {
-    fetch('/assets/tortoise.json')
-      .then(response => response.json())
-      .then(data => setTortoiseAnimationData(data))
-      .catch(error => console.error('Error loading tortoise animation:', error));
-  }, []);
-
   return (
     <div className={styles.forgotPasswordContainer}>
-      <div className={styles.backButtonContainer}>
+      <div className={styles.navBackButtonContainer}>
         <Link to="/login">
           <Button 
             icon={<ArrowLeftOutlined />} 
             className={styles.backButton}
+            size="large"
           >
             Back to Login
           </Button>
@@ -750,6 +744,25 @@ const ForgotPasswordPage = () => {
       </div>
       
       <Row gutter={[24, 0]} align="middle" justify="center" className={styles.contentRow}>
+        <Col xs={24} sm={24} md={12} lg={12} xl={12} className={styles.animationColumn}>
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            className={styles.animationContainer}
+          >
+            <Lottie 
+              animationData={tortoiseAnimation}
+              loop={true}
+              style={{ width: '300px', height: '300px' }}
+            />
+            <div className={styles.animationCaption}>
+              <h3>Password Recovery</h3>
+              <p>We'll help you reset your password safely</p>
+            </div>
+          </motion.div>
+        </Col>
+        
         <Col xs={24} sm={24} md={12} lg={12} xl={12}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -760,22 +773,11 @@ const ForgotPasswordPage = () => {
             <Card 
               bordered={true}
               className={styles.forgotPasswordCard}
-              title={
-                <div className={styles.cardTitle}>
-                  <div className={styles.lottieContainer}>
-                    {tortoiseAnimationData && (
-                      <Lottie 
-                        animationData={tortoiseAnimationData}
-                        loop={true}
-                        autoplay={true}
-                        style={{ width: 80, height: 80 }}
-                      />
-                    )}
-                  </div>
-                  <Typography.Title level={3}>Password Recovery</Typography.Title>
-                </div>
-              }
             >
+              <div className={styles.formHeader}>
+                <Title level={2}>Reset Password</Title>
+                <Paragraph type="secondary">Follow the steps to recover your account</Paragraph>
+              </div>
               {renderFormContent()}
             </Card>
           </motion.div>
