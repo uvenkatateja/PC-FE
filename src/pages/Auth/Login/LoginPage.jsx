@@ -48,7 +48,7 @@ const LoginPage = () => {
     
     try {
       await login(values);
-      toast.success('Logged in successfully!');
+     
       console.log("POST /auth/login successful");
       navigate('/dashboard');
     } catch (error) {
@@ -66,11 +66,12 @@ const LoginPage = () => {
 
   return (
     <div className={styles.loginContainer}>
-      <div className={styles.backButtonContainer}>
+      <div className={styles.navBackButtonContainer}>
         <Link to="/">
           <Button 
             icon={<ArrowLeftOutlined />} 
             className={styles.backButton}
+            size="large"
           >
             Back to Home
           </Button>

@@ -41,7 +41,7 @@
   padding: 0 20px;
   background: #ffffff;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-  border: 3px solid #3498DB; /* Added blue border */
+  border: 2px solid #FF7F50; /* Changed to thin orange border */
   border-radius: 50px;
   height: 60px;
   transition: all 0.3s ease;
@@ -57,7 +57,7 @@
 .navButton:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  color: #3498DB !important;
+  color: #FF7F50 !important;
 }
 
 .registerButton {
@@ -91,7 +91,7 @@
 
 /* Avatar styles */
 .userAvatar {
-  background-color: #3498DB;
+  background-color: #FF7F50;
   color: #FFFFFF;
   transition: all 0.3s ease;
   border: none;

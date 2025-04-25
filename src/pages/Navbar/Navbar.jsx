@@ -12,7 +12,6 @@ import {
   Dropdown
 } from 'antd';
 import {
-  HomeOutlined,
   DashboardOutlined,
   UserOutlined,
   MenuOutlined,
@@ -49,7 +48,7 @@ const Navbar = () => {
       key: 'profile',
       label: (
         <div style={{ padding: '8px 0' }}>
-          <Text type="secondary">
+          <Text type="secondary" style={{ fontSize: '16px' }}>
             Welcome, {user?.name || 'User'}
           </Text>
         </div>
@@ -58,25 +57,28 @@ const Navbar = () => {
     },
     {
       key: 'dashboard',
-      label: <Link to="/dashboard">Dashboard</Link>,
-      icon: <DashboardOutlined />
+      label: <span style={{ fontSize: '16px' }}>Dashboard</span>,
+      icon: <DashboardOutlined style={{ fontSize: '16px' }} />
     },
     {
       type: 'divider'
     },
     {
       key: 'logout',
-      label: 'Logout',
-      icon: <LogoutOutlined />,
+      label: <span style={{ fontSize: '16px' }}>Logout</span>,
+      icon: <LogoutOutlined style={{ fontSize: '16px' }} />,
       onClick: handleLogout
     }
   ];
+
+  const navLinkStyle = { fontSize: '16px' };
+  const iconStyle = { fontSize: '16px' };
 
   return (
     <div className={styles.navbarContainer}>
       <div className={styles.navbar}>
         <div style={{ flex: isMobile ? 1 : '0 0 auto' }}>
-          <Link to="/" className={styles.logo}>
+          <Link to="/" className={styles.logo} style={{ fontSize: '20px' }}>
             PetFinder <span className={styles.logoEmoji}>🐾</span>
           </Link>
         </div>
@@ -87,14 +89,11 @@ const Navbar = () => {
             mode="horizontal" 
             selectedKeys={[]} 
             className={styles.menu}
-            style={{ visibility: 'visible', display: 'flex' }}
+            style={{ visibility: 'visible', display: 'flex', fontSize: '16px' }}
           >
-            <Menu.Item key="home" icon={<HomeOutlined />} style={{ display: 'flex', alignItems: 'center' }}>
-              <Link to="/">Home</Link>
-            </Menu.Item>
             {isAuthenticated && (
-              <Menu.Item key="dashboard" icon={<DashboardOutlined />}>
-                <Link to="/dashboard">Dashboard</Link>
+              <Menu.Item key="dashboard" icon={<DashboardOutlined style={iconStyle} />}>
+                <Link to="/dashboard" style={navLinkStyle}>Dashboard</Link>
               </Menu.Item>
             )}
           </Menu>
@@ -104,17 +103,17 @@ const Navbar = () => {
               <a onClick={(e) => e.preventDefault()} style={{ cursor: 'pointer' }}>
                 <Space>
                   <Avatar size="small" icon={<UserOutlined />} className={styles.userAvatar} />
-                  <span style={{ color: 'rgba(0, 0, 0, 0.65)' }}>{user?.name || 'User'}</span>
+                  <span style={{ color: 'rgba(0, 0, 0, 0.65)', fontSize: '16px' }}>{user?.name || 'User'}</span>
                 </Space>
               </a>
             </Dropdown>
           ) : (
             <Space>
               <Link to="/login">
-                <Button type="link" className={styles.navButton} style={{ color: '#333333' }}>Login</Button>
+                <Button type="link" className={styles.navButton} style={{ color: '#333333', fontSize: '16px' }}>Login</Button>
               </Link>
               <Link to="/register">
-                <Button shape="round" className={styles.registerButton}>
+                <Button shape="round" className={styles.registerButton} style={{ fontSize: '16px' }}>
                   Register
                 </Button>
               </Link>
@@ -126,7 +125,7 @@ const Navbar = () => {
         <div style={{ display: isMobile ? 'block' : 'none', textAlign: 'right' }}>
           <Button 
             type="text" 
-            icon={<MenuOutlined />} 
+            icon={<MenuOutlined style={{ fontSize: '20px' }} />} 
             onClick={() => setMobileMenuOpen(true)}
             className={styles.navButton}
           />
@@ -135,7 +134,7 @@ const Navbar = () => {
         {/* Mobile Menu Drawer */}
         <Drawer
           title={
-            <div className={styles.logo}>
+            <div className={styles.logo} style={{ fontSize: '20px' }}>
               PetFinder <span className={styles.logoEmoji}>🐾</span>
             </div>
           }
@@ -146,36 +145,32 @@ const Navbar = () => {
           width={280}
           bodyStyle={{ padding: '20px 0' }}
         >
-          <Menu mode="vertical" style={{ border: 'none' }}>
-            <Menu.Item key="home" icon={<HomeOutlined />}>
-              <Link to="/" onClick={() => setMobileMenuOpen(false)}>Home</Link>
-            </Menu.Item>
-            
+          <Menu mode="vertical" style={{ border: 'none', fontSize: '16px' }}>
             {isAuthenticated ? (
               <>
-                <Menu.Item key="dashboard" icon={<DashboardOutlined />}>
-                  <Link to="/dashboard" onClick={() => setMobileMenuOpen(false)}>Dashboard</Link>
+                <Menu.Item key="dashboard" icon={<DashboardOutlined style={iconStyle} />}>
+                  <Link to="/dashboard" onClick={() => setMobileMenuOpen(false)} style={navLinkStyle}>Dashboard</Link>
                 </Menu.Item>
                 <Menu.Divider />
                 <Menu.Item key="user" disabled>
                   <Space>
                     <Avatar size="small" icon={<UserOutlined />} className={styles.userAvatar} />
-                    <Text type="secondary">Welcome, {user?.name || 'User'}</Text>
+                    <Text type="secondary" style={{ fontSize: '16px' }}>Welcome, {user?.name || 'User'}</Text>
                   </Space>
                 </Menu.Item>
-                <Menu.Item key="logout" icon={<LogoutOutlined />} onClick={handleLogout}>
-                  Logout
+                <Menu.Item key="logout" icon={<LogoutOutlined style={iconStyle} />} onClick={handleLogout}>
+                  <span style={navLinkStyle}>Logout</span>
                 </Menu.Item>
               </>
             ) : (
               <>
                 <Menu.Item key="login">
-                  <Link to="/login" onClick={() => setMobileMenuOpen(false)}>Login</Link>
+                  <Link to="/login" onClick={() => setMobileMenuOpen(false)} style={navLinkStyle}>Login</Link>
                 </Menu.Item>
                 <Menu.Divider />
                 <div style={{ padding: '0 16px' }}>
                   <Link to="/register" onClick={() => setMobileMenuOpen(false)}>
-                    <Button shape="round" block className={styles.registerButton}>
+                    <Button shape="round" block className={styles.registerButton} style={{ fontSize: '16px' }}>
                       Register
                     </Button>
                   </Link>
