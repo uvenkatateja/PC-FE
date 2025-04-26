@@ -13,6 +13,26 @@ export default defineConfig({
   ],
   server: {
     port: 3000,
-    open: true
+    open: true,
+    // Add history API fallback for client-side routing
+    historyApiFallback: true
+  },
+  // Add base URL configuration for proper asset paths
+  base: './',
+  build: {
+    // Output directory for production build
+    outDir: 'dist',
+    // Generate sourcemaps for better debugging
+    sourcemap: true,
+    // Configure rollup options
+    rollupOptions: {
+      output: {
+        // Ensure assets are properly named and cached
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'react-router-dom'],
+          ui: ['antd', '@ant-design/icons'],
+        }
+      }
+    }
   }
 })
