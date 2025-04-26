@@ -28,6 +28,15 @@
   --animation-speed-slow: 1.2s;
   --animation-speed-medium: 0.8s;
   --animation-speed-fast: 0.4s;
+  
+  /* Variables for colors */
+  --warmBackground: #FFF8F0;
+  --lighterOrange: #FFE6D9;
+  --softCream: #FFF6EC;
+  --accentOrange: #FF7F50;
+  --deepOrange: #E86A3E;
+  --softBlue: #E6F7FF;
+  --accentBlue: #1890FF;
 }
 
 /* Resets and Layout */
@@ -652,6 +661,344 @@ html, body {
 .socialIcon:hover::before {
   transform: translateX(100%);
   transition: 0.5s;
+}
+
+/* Component Styles */
+.sectionTitle {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.sectionHeading {
+  font-weight: 700;
+}
+
+.sectionSubtitle {
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.65);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.heroLayout {
+  background: var(--warmBackground);
+  min-height: 100vh;
+  padding-top: 0;
+}
+
+.heroSectionWrapper {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 80px 0 0;
+  margin-top: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.heroContainer {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 100%;
+  padding: 0 2rem;
+}
+
+.decorativeCircleLeft {
+  position: absolute;
+  left: 5%;
+  top: 15%;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: rgba(200, 200, 200, 0.2);
+  filter: blur(40px);
+  z-index: 0;
+}
+
+.decorativeCircleRight {
+  position: absolute;
+  right: 10%;
+  bottom: 20%;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: rgba(200, 200, 200, 0.2);
+  filter: blur(50px);
+  z-index: 0;
+}
+
+.heroContent {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.tagBadgeGradient {
+  background: linear-gradient(90deg, var(--lighterOrange), var(--softCream));
+  box-shadow: 0 4px 15px rgba(255, 127, 80, 0.15);
+}
+
+.heroTitle {
+  margin: 24px 0;
+  font-weight: 800;
+  font-size: clamp(2rem, 6vw, 4rem);
+  color: #222222;
+  word-break: break-word;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.heroHighlight {
+  background-color: var(--accentOrange);
+  padding: 0 15px;
+  border-radius: 20px;
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(255, 127, 80, 0.3);
+}
+
+.heroParagraph {
+  font-size: clamp(16px, 2vw, 20px);
+  color: #222222;
+  max-width: 800px;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.primaryButtonGradient {
+  border-radius: 30px;
+  background: linear-gradient(90deg, var(--accentOrange), var(--deepOrange));
+  border-color: var(--accentOrange);
+  height: 50px;
+  font-size: 16px;
+  box-shadow: 0 6px 16px rgba(255, 127, 80, 0.3);
+  transition: all 0.3s ease;
+}
+
+.secondaryButtonCustom {
+  border-radius: 30px;
+  height: 50px;
+  font-size: 16px;
+  border-width: 2px;
+  border-color: var(--accentBlue);
+  color: var(--accentBlue);
+  box-shadow: 0 6px 16px rgba(24, 144, 255, 0.1);
+}
+
+.statCounterCustom {
+  margin-top: 40px;
+  border-radius: 15px;
+  background: linear-gradient(145deg, #ffffff, var(--softCream));
+  border-color: var(--lighterOrange);
+  padding: 15px 20px;
+  box-shadow: 0 10px 25px rgba(255, 127, 80, 0.1);
+  border: 1px solid var(--lighterOrange);
+}
+
+.flexAlignCenter {
+  display: flex;
+  align-items: center;
+}
+
+.marginRightSmall {
+  margin-right: 10px;
+}
+
+.marginLeftAuto {
+  margin-left: auto;
+}
+
+.marginLeftSmall {
+  margin-left: 10px;
+}
+
+.strongTextOrange {
+  font-size: 18px;
+  color: var(--deepOrange);
+}
+
+.starIcon {
+  color: var(--accentOrange);
+  margin-right: 5px;
+}
+
+.strongRating {
+  color: var(--deepOrange);
+}
+
+.profileImageContainer {
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.decorativeShape {
+  position: absolute;
+  width: 80%;
+  height: 80%;
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  background: linear-gradient(45deg, var(--lighterOrange), var(--softCream));
+  z-index: 0;
+  top: 10%;
+  left: 10%;
+  filter: blur(2px);
+}
+
+.profileImageStyle {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  position: relative;
+  z-index: 1;
+}
+
+.pawPrintBottom {
+  position: absolute;
+  bottom: -10px;
+  right: 10%;
+  font-size: 28px;
+  z-index: 2;
+}
+
+.pawPrintTop {
+  position: absolute;
+  top: 10%;
+  left: 5%;
+  font-size: 24px;
+  z-index: 2;
+  transform: rotate(-20deg);
+}
+
+.featuresSection {
+  background: #fff;
+  padding: 100px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.decorativeShapeTop {
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  width: 200px;
+  height: 200px;
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  background: var(--softBlue);
+  opacity: 0.1;
+  z-index: 0;
+}
+
+.decorativeShapeBottom {
+  position: absolute;
+  bottom: 10%;
+  left: 5%;
+  width: 150px;
+  height: 150px;
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  background: var(--lighterOrange);
+  opacity: 0.1;
+  z-index: 0;
+}
+
+.howItWorksHeader {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.howItWorksTitle {
+  margin: 30px 0 20px;
+  font-weight: 800;
+  font-size: clamp(2rem, 4vw, 3rem);
+  position: relative;
+  display: inline-block;
+}
+
+.howItWorksParagraph {
+  font-size: clamp(16px, 2vw, 20px);
+  color: #555;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.stepsTitle {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.statisticsSection {
+  background: #f9f9f9;
+  padding: 60px 0;
+}
+
+.statisticItem {
+  text-align: center;
+}
+
+.testimonialsSection {
+  background: #fff;
+  padding: 80px 0;
+}
+
+.testimonialItemStyle {
+  animation-delay: 0.1s;
+  animation-fill-mode: forwards;
+}
+
+.ctaParagraph {
+  font-size: 18px;
+  color: #555;
+  max-width: 700px;
+  margin: 0 auto 30px;
+  line-height: 1.6;
+}
+
+.ctaFlexCenter {
+  display: flex;
+  justify-content: center;
+}
+
+.ctaImageContainer {
+  max-width: 300px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.lottieFullWidth {
+  width: 100%;
+}
+
+.ctaTitle {
+  font-weight: 600;
+  color: var(--deepOrange);
+  margin-bottom: 16px;
+}
+
+.ctaDescription {
+  font-size: 16px;
+  margin-bottom: 24px;
+}
+
+.ctaButtonsContainer {
+  justify-content: flex-start;
+}
+
+.footerParagraph {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.footerHeading {
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.contactItem {
+  color: rgba(255, 255, 255, 0.65);
 }
 
 /* Animations */

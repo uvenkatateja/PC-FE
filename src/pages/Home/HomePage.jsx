@@ -94,13 +94,11 @@ const SectionTitle = ({ title, subtitle }) => (
     whileInView="visible"
     viewport={{ once: true, amount: 0.2 }}
     variants={fadeIn}
-    style={{ textAlign: 'center', marginBottom: '60px' }}
+    className={styles.sectionTitle}
   >
-    <Title level={2} style={{ fontWeight: 700 }}>{title}</Title>
+    <Title level={2} className={styles.sectionTitleText}>{title}</Title>
     {subtitle && (
-      <Paragraph style={{ fontSize: '18px', color: 'rgba(0, 0, 0, 0.65)', maxWidth: '600px', margin: '0 auto' }}>
-        {subtitle}
-      </Paragraph>
+      <Paragraph className={styles.sectionSubtitle}>{subtitle}</Paragraph>
     )}
   </motion.div>
 );
@@ -126,18 +124,10 @@ const FeatureCard = ({ icon, title, description, linkText, linkTo, index }) => (
           transition: { duration: 0.3 }
         }}
       >
-        <span style={{ fontSize: '34px' }}>{icon}</span>
+        <span className={styles.featureIcon}>{icon}</span>
       </motion.div>
-      <Title level={3} style={{ textAlign: 'center', marginBottom: '16px' }}>{title}</Title>
-      <Paragraph style={{ 
-        color: 'rgba(0, 0, 0, 0.75)', 
-        marginBottom: '20px', 
-        fontSize: '16px',
-        lineHeight: '1.6',
-        textAlign: 'center'
-      }}>
-        {description}
-      </Paragraph>
+      <Title level={3} className={styles.featureTitle}>{title}</Title>
+      <Paragraph className={styles.featureDescription}>{description}</Paragraph>
       {linkText && linkTo && (
         <Link to={linkTo}>
           <Button type="link" className={styles.featureLink}>{linkText} →</Button>
@@ -149,21 +139,17 @@ const FeatureCard = ({ icon, title, description, linkText, linkTo, index }) => (
 
 // Testimonial card component
 const TestimonialCard = ({ emoji, name, location, testimonial }) => (
-  <motion.div variants={fadeIn}>
-    <Card className={styles.testimonialCard}>
-      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '16px' }}>
-        <Avatar className={styles.testimonialAvatar} size={48}>
-          {emoji}
-        </Avatar>
-        <div style={{ marginLeft: '16px' }}>
-          <Title level={4} style={{ margin: 0 }}>{name}</Title>
-          <Text type="secondary">{location}</Text>
-        </div>
-      </div>
-      <Paragraph italic style={{ color: 'rgba(0, 0, 0, 0.65)' }}>
-        {testimonial}
-      </Paragraph>
-    </Card>
+  <motion.div variants={fadeIn} className={styles.testimonialCard}>
+    <div className={styles.testimonialAvatarContainer}>
+      <Avatar className={styles.testimonialAvatar} size={48}>
+        {emoji}
+      </Avatar>
+    </div>
+    <div className={styles.testimonialContent}>
+      <Title level={4} className={styles.testimonialName}>{name}</Title>
+      <Text type="secondary" className={styles.testimonialLocation}>{location}</Text>
+      <Paragraph italic className={styles.testimonialText}>{testimonial}</Paragraph>
+    </div>
   </motion.div>
 );
 
@@ -265,100 +251,41 @@ const HomePage = () => {
   };
 
   return (
-    <Layout style={{ background: colors.warmBackground, minHeight: '100vh', paddingTop: '0' }}>
+    <Layout className={styles.heroLayout}>
       {/* Hero Section */}
-      <div className={styles.heroSection} style={{ 
-        background: `linear-gradient(135deg, ${colors.warmBackground} 0%, ${colors.lighterOrange} 100%)`,
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        width: '100%',
-        padding: '80px 0 0',
-        marginTop: '0',
-        position: 'relative',
-        overflow: 'hidden'
-      }}>
-        <div className={styles.petPattern} style={{ opacity: 0.4 }} />
+      <div className={`${styles.heroSection} ${styles.heroSectionWrapper}`}>
+        <div className={styles.petPattern} />
         
         {/* Decorative elements */}
         <motion.div 
           initial={{ opacity: 0, scale: 0, x: -100 }}
           animate={{ opacity: 0.6, scale: 1, x: 0 }}
           transition={{ duration: 1, delay: 0.5 }}
-          style={{
-            position: 'absolute',
-            left: '5%',
-            top: '15%',
-            width: '120px',
-            height: '120px',
-            borderRadius: '50%',
-            background: colors.accentOrange,
-            filter: 'blur(40px)',
-            zIndex: 0
-          }}
+          className={styles.decorativeCircleLeft}
         />
         
         <motion.div 
           initial={{ opacity: 0, scale: 0, x: 100 }}
           animate={{ opacity: 0.5, scale: 1, x: 0 }}
           transition={{ duration: 1, delay: 0.7 }}
-          style={{
-            position: 'absolute',
-            right: '10%',
-            bottom: '20%',
-            width: '150px',
-            height: '150px',
-            borderRadius: '50%',
-            background: colors.accentBlue,
-            filter: 'blur(50px)',
-            zIndex: 0
-          }}
+          className={styles.decorativeCircleRight}
         />
         
-        <div className={styles.container} style={{ 
-          position: 'relative', 
-          zIndex: 1,
-          width: '100%',
-          maxWidth: '100%',
-          padding: '0 2rem'
-        }}>
-          <Row gutter={[{ xs: 16, sm: 24, md: 32, lg: 48 }, { xs: 16, sm: 24, md: 32 }]} align="middle" justify="center" style={{ width: '100%' }}>
-            <Col xs={24} sm={24} md={14} lg={12}>
-              <motion.div initial="hidden" animate="visible" variants={fadeIn} style={{ maxWidth: '800px', margin: '0 auto' }}>
-                <Space direction="vertical" size="large" style={{ width: '100%' }}>
-                  <div className={styles.tagBadge} style={{ 
-                    background: `linear-gradient(90deg, ${colors.lighterOrange}, ${colors.softCream})`,
-                    boxShadow: '0 4px 15px rgba(255, 127, 80, 0.15)'
-                  }}>
+        <div className={`${styles.container} ${styles.heroContainer}`}>
+          <Row gutter={[{ xs: 16, sm: 24, md: 32, lg: 48 }, { xs: 16, sm: 24, md: 32 }]} align="middle" justify="center" className={styles.heroRow}>
+            <Col xs={24} sm={24} md={14} lg={12} className={styles.heroContentCol}>
+              <motion.div initial="hidden" animate="visible" variants={fadeIn} className={styles.heroContent}>
+                <Space direction="vertical" size="large" className={styles.heroSpace}>
+                  <div className={`${styles.tagBadge} ${styles.tagBadgeGradient}`}>
                     <span>🐾</span>
                     <span>Reuniting pets with their families</span>
                   </div>
                   
-                  <Title level={1} style={{ 
-                    margin: '24px 0', 
-                    fontWeight: 800, 
-                    fontSize: 'clamp(2rem, 6vw, 4rem)', 
-                    color: '#222222', 
-                    wordBreak: 'break-word',
-                    lineHeight: 1.2,
-                    letterSpacing: '-0.02em'
-                  }}>
-                    Your <span style={{ 
-                      backgroundColor: colors.accentOrange, 
-                      padding: '0 15px', 
-                      borderRadius: '20px', 
-                      color: '#FFFFFF',
-                      boxShadow: '0 4px 12px rgba(255, 127, 80, 0.3)'
-                    }}>Pet Care</span> Center
+                  <Title level={1} className={styles.heroTitle}>
+                    Your <span className={styles.heroHighlight}>Pet Care</span> Center
                   </Title>
                   
-                  <Paragraph style={{ 
-                    fontSize: 'clamp(16px, 2vw, 20px)', 
-                    color: '#222222', 
-                    maxWidth: '800px',
-                    lineHeight: 1.6,
-                    marginBottom: '30px'
-                  }}>
+                  <Paragraph className={styles.heroParagraph}>
                     We believe finding a reliable, professional pet sitter should be easy. So make sure every member of our Family gets the best care possible.
                   </Paragraph>
                   
@@ -369,16 +296,7 @@ const HomePage = () => {
                           size="large" 
                           type="primary" 
                           icon={<DashboardOutlined />} 
-                          style={{ 
-                            background: `linear-gradient(90deg, ${colors.accentOrange}, ${colors.deepOrange})`, 
-                            borderColor: colors.accentOrange, 
-                            height: '50px', 
-                            fontSize: '16px',
-                            borderRadius: '30px',
-                            boxShadow: '0 6px 16px rgba(255, 127, 80, 0.3)',
-                            transition: 'all 0.3s ease'
-                          }}
-                          className={styles.primaryButton}
+                          className={`${styles.primaryButton} ${styles.primaryButtonGradient}`}
                         >
                           View Dashboard
                         </Button>
@@ -388,15 +306,7 @@ const HomePage = () => {
                         <Link to="/register">
                           <Button 
                             size="large" 
-                            className={styles.primaryButton} 
-                            style={{ 
-                              borderRadius: '30px', 
-                              background: `linear-gradient(90deg, ${colors.accentOrange}, ${colors.deepOrange})`, 
-                              borderColor: colors.accentOrange, 
-                              height: '50px', 
-                              fontSize: '16px',
-                              boxShadow: '0 6px 16px rgba(255, 127, 80, 0.3)'
-                            }}
+                            className={`${styles.primaryButton} ${styles.primaryButtonGradient}`}
                           >
                             <Space>
                               <span role="img" aria-label="paw">🐾</span>
@@ -406,17 +316,8 @@ const HomePage = () => {
                         </Link>
                         <Link to="/login">
                           <Button 
-                            size="large" 
-                            className={styles.secondaryButton} 
-                            style={{ 
-                              borderRadius: '30px', 
-                              height: '50px', 
-                              fontSize: '16px',
-                              borderWidth: '2px',
-                              borderColor: colors.accentBlue,
-                              color: colors.accentBlue,
-                              boxShadow: '0 6px 16px rgba(24, 144, 255, 0.1)'
-                            }}
+                            size="large"
+                            className={`${styles.secondaryButton} ${styles.secondaryButtonCustom}`}
                           >
                             Our Service
                           </Button>
@@ -426,22 +327,14 @@ const HomePage = () => {
                   </Space>
                   
                   {/* Stats counter */}
-                  <div className={styles.statCounter} style={{ 
-                    marginTop: '40px', 
-                    borderRadius: '15px', 
-                    background: `linear-gradient(145deg, #ffffff, ${colors.softCream})`, 
-                    borderColor: colors.lighterOrange,
-                    padding: '15px 20px',
-                    boxShadow: '0 10px 25px rgba(255, 127, 80, 0.1)',
-                    border: `1px solid ${colors.lighterOrange}`
-                  }}>
+                  <div className={`${styles.statCounter} ${styles.statCounterCustom}`}>
                     <Row align="middle">
                       <Col>
-                        <div style={{ display: 'flex', alignItems: 'center' }}>
-                          <div style={{ marginRight: '10px' }}>
-                            <Text strong style={{ fontSize: '18px', color: colors.deepOrange }}>4k+</Text>
+                        <div className={styles.flexAlignCenter}>
+                          <div className={styles.marginRightSmall}>
+                            <Text strong className={styles.strongTextOrange}>4k+</Text>
                           </div>
-                          <div style={{ display: 'flex', alignItems: 'center' }}>
+                          <div className={styles.flexAlignCenter}>
                             <Avatar.Group
                               maxCount={3}
                               maxStyle={{ 
@@ -479,16 +372,16 @@ const HomePage = () => {
                                 M
                               </Avatar>
                             </Avatar.Group>
-                            <Text style={{ marginLeft: '10px', color: '#555' }}>Satisfied Customers</Text>
+                            <Text className={styles.marginLeftSmall}>Satisfied Customers</Text>
                           </div>
                         </div>
                       </Col>
-                      <Col style={{ marginLeft: 'auto' }}>
-                        <div style={{ display: 'flex', alignItems: 'center' }}>
-                          <Text style={{ color: '#555' }}>Rating</Text>
-                          <div style={{ marginLeft: '10px', display: 'flex', alignItems: 'center' }}>
-                            <span role="img" aria-label="star" style={{ color: colors.accentOrange, marginRight: '5px' }}>⭐</span>
-                            <Text strong style={{ color: colors.deepOrange }}>5.0</Text>
+                      <Col className={styles.marginLeftAuto}>
+                        <div className={styles.flexAlignCenter}>
+                          <Text>Rating</Text>
+                          <div className={`${styles.flexAlignCenter} ${styles.marginLeftSmall}`}>
+                            <span role="img" aria-label="star" className={styles.starIcon}>⭐</span>
+                            <Text strong className={styles.strongRating}>5.0</Text>
                           </div>
                         </div>
                       </Col>
@@ -498,19 +391,12 @@ const HomePage = () => {
               </motion.div>
             </Col>
             
-            <Col xs={24} sm={24} md={10} lg={10}>
+            <Col xs={24} sm={24} md={10} lg={10} className={styles.heroImageCol}>
               <motion.div
                 initial={{ opacity: 0, scale: 0.9, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.2, type: "spring", stiffness: 100 }}
-                className={styles.profileImageWrapper}
-                style={{ 
-                  maxWidth: '100%',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  position: 'relative'
-                }}
+                className={`${styles.profileImageWrapper} ${styles.profileImageContainer}`}
               >
                 {!imagesLoaded ? (
                   <div className={styles.imageLoader}>
@@ -525,34 +411,15 @@ const HomePage = () => {
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{ opacity: 0.7, scale: 1 }}
                   transition={{ duration: 0.5, delay: 0.6 }}
-                  style={{
-                    position: 'absolute',
-                    width: '80%',
-                    height: '80%',
-                    borderRadius: '30% 70% 70% 30% / 30% 30% 70% 70%',
-                    background: `linear-gradient(45deg, ${colors.lighterOrange}, ${colors.softCream})`,
-                    zIndex: 0,
-                    top: '10%',
-                    left: '10%',
-                    filter: 'blur(2px)'
-                  }}
+                  className={styles.decorativeShape}
                 />
                 
                 <img 
                   src={profileImage} 
                   alt="Pet Care Profile" 
-                  className={`${styles.profileImage} ${imagesLoaded ? styles.imageLoaded : styles.imageLoading}`} 
+                  className={`${styles.profileImage} ${styles.profileImageStyle} ${imagesLoaded ? styles.imageLoaded : styles.imageLoading}`} 
                   onLoad={() => setImagesLoaded(true)}
                   loading="lazy"
-                  style={{
-                    maxWidth: '100%',
-                    height: 'auto',
-                    objectFit: 'contain',
-                    borderRadius: '20px',
-                    boxShadow: '0 20px 40px rgba(0, 0, 0, 0.15)',
-                    position: 'relative',
-                    zIndex: 1
-                  }}
                 />
                 
                 {/* Floating paw prints */}
@@ -560,13 +427,7 @@ const HomePage = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.8 }}
-                  style={{
-                    position: 'absolute',
-                    bottom: '-10px',
-                    right: '10%',
-                    fontSize: '28px',
-                    zIndex: 2
-                  }}
+                  className={styles.pawPrintBottom}
                 >
                   🐾
                 </motion.div>
@@ -575,14 +436,7 @@ const HomePage = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 1 }}
-                  style={{
-                    position: 'absolute',
-                    top: '10%',
-                    left: '5%',
-                    fontSize: '24px',
-                    zIndex: 2,
-                    transform: 'rotate(-20deg)'
-                  }}
+                  className={styles.pawPrintTop}
                 >
                   🐾
                 </motion.div>
@@ -593,56 +447,25 @@ const HomePage = () => {
       </div>
 
       {/* Features Section - Enhanced with better animations and improved layout */}
-      <Section style={{ 
-        background: '#fff', 
-        padding: '100px 0',
-        position: 'relative',
-        overflow: 'hidden'
-      }}>
+      <Section className={styles.featuresSection}>
         {/* Decorative background elements */}
-        <div style={{
-          position: 'absolute',
-          top: '5%',
-          right: '5%',
-          width: '200px',
-          height: '200px',
-          borderRadius: '30% 70% 70% 30% / 30% 30% 70% 70%',
-          background: colors.softBlue,
-          opacity: 0.1,
-          zIndex: 0
-        }} />
+        <div className={styles.decorativeShapeTop} />
         
-        <div style={{
-          position: 'absolute',
-          bottom: '10%',
-          left: '5%',
-          width: '150px',
-          height: '150px',
-          borderRadius: '60% 40% 30% 70% / 60% 30% 70% 40%',
-          background: colors.lighterOrange,
-          opacity: 0.1,
-          zIndex: 0
-        }} />
+        <div className={styles.decorativeShapeBottom} />
         
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
           variants={scaleUp}
-          style={{ textAlign: 'center', marginBottom: '80px' }}
+          className={styles.howItWorksHeader}
         >
           <div className={styles.sectionBadge}>
             <span role="img" aria-label="how it works">🔍</span>
             <span>Simple Process</span>
           </div>
           
-          <Title level={2} style={{ 
-            margin: '30px 0 20px', 
-            fontWeight: 800, 
-            fontSize: 'clamp(2rem, 4vw, 3rem)', 
-            position: 'relative',
-            display: 'inline-block'
-          }}>
+          <Title level={2} className={styles.howItWorksTitle}>
             How It Works
             <motion.div 
               className={styles.titleUnderline}
@@ -653,13 +476,7 @@ const HomePage = () => {
             />
           </Title>
           
-          <Paragraph style={{ 
-            fontSize: 'clamp(16px, 2vw, 20px)', 
-            color: '#555', 
-            maxWidth: '800px', 
-            margin: '0 auto',
-            lineHeight: 1.6
-          }}>
+          <Paragraph className={styles.howItWorksParagraph}>
             Our platform makes it easy to care for your pets and access services with just a few clicks. 
             Follow these simple steps to get started and experience the best pet care available.
           </Paragraph>
@@ -691,7 +508,7 @@ const HomePage = () => {
             viewport={{ once: true, amount: 0.1 }}
           >
             <Card className={styles.stepsCard}>
-              <Title level={3} style={{ textAlign: 'center', marginBottom: '30px' }}>4 Simple Steps</Title>
+              <Title level={3} className={styles.stepsTitle}>4 Simple Steps</Title>
               <Row gutter={[{ xs: 15, sm: 20, md: 30 }, { xs: 15, sm: 20, md: 30 }]}>
                 {[
                   { number: '01', title: 'Create Account', desc: 'Sign up in seconds' },
@@ -705,8 +522,8 @@ const HomePage = () => {
                       whileHover={{ y: -10, transition: { duration: 0.3 } }}
                     >
                       <div className={styles.stepNumber}>{step.number}</div>
-                      <Title level={5} style={{ margin: '12px 0 5px' }}>{step.title}</Title>
-                      <Text type="secondary">{step.desc}</Text>
+                      <Title level={5} className={styles.stepTitle}>{step.title}</Title>
+                      <Text type="secondary" className={styles.stepDescription}>{step.desc}</Text>
                     </motion.div>
                   </Col>
                 ))}
@@ -717,7 +534,7 @@ const HomePage = () => {
       </Section>
 
       {/* Statistics Section */}
-      <Section style={{ background: '#f9f9f9', padding: '60px 0' }}>
+      <Section className={styles.statisticsSection}>
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -727,7 +544,7 @@ const HomePage = () => {
           <Row gutter={[{ xs: 16, sm: 24, md: 32 }, { xs: 16, sm: 24, md: 32 }]} justify="center">
             {stats.map((stat, index) => (
               <Col xs={12} sm={6} md={6} key={index}>
-                <motion.div variants={fadeIn} style={{ textAlign: 'center' }}>
+                <motion.div variants={fadeIn} className={styles.statisticItem}>
                   <Statistic 
                     title={stat.title} 
                     value={stat.value} 
@@ -743,7 +560,7 @@ const HomePage = () => {
       </Section>
 
       {/* Testimonials Section */}
-      <Section style={{ background: '#fff', padding: '80px 0' }}>
+      <Section className={styles.testimonialsSection}>
         <SectionTitle 
           title="Success Stories" 
           subtitle="Read how PetFinder has helped reunite pets with their families"
@@ -760,10 +577,7 @@ const HomePage = () => {
               <Col xs={24} sm={12} md={8} lg={8} key={index}>
                 <TestimonialCard 
                   {...testimonial} 
-                  style={{
-                    animationDelay: `${index * 0.1}s`,
-                    animationFillMode: 'forwards'
-                  }}
+                  className={styles.testimonialItemStyle}
                 />
               </Col>
             ))}
@@ -780,34 +594,24 @@ const HomePage = () => {
           variants={fadeIn}
           className={styles.ctaContent}
         >
-          <Paragraph style={{ 
-            fontSize: '18px', 
-            color: '#555', 
-            maxWidth: '700px', 
-            margin: '0 auto 30px',
-            lineHeight: 1.6
-          }}>
+          <Paragraph className={styles.ctaParagraph}>
             Join thousands of pet owners who have successfully found their lost pets using our platform. Our community is growing every day!
           </Paragraph>
           
           {!isAuthenticated && (
             <Row gutter={[24, 24]} align="middle" justify="center">
-              <Col xs={24} md={12} style={{ display: 'flex', justifyContent: 'center' }}>
+              <Col xs={24} md={12} className={styles.ctaFlexCenter}>
                 <motion.div
                   initial={{ opacity: 0, scale: 0.8 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6 }}
-                  style={{
-                    maxWidth: '300px', 
-                    width: '100%',
-                    marginBottom: '20px'
-                  }}
+                  className={styles.ctaImageContainer}
                 >
                   <Lottie 
                     animationData={findPetsAnimation} 
                     loop={true}
-                    style={{ width: '100%' }}
+                    className={styles.lottieFullWidth}
                   />
                 </motion.div>
               </Col>
@@ -818,29 +622,19 @@ const HomePage = () => {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.2 }}
                 >
-                  <Space direction="vertical" size="large" style={{ width: '100%' }}>
-                    <Title level={3} style={{ 
-                      fontWeight: 600, 
-                      color: colors.deepOrange,
-                      marginBottom: '16px'
-                    }}>
+                  <Space direction="vertical" size="large" className={styles.ctaSpace}>
+                    <Title level={3} className={styles.ctaTitle}>
                       Ready to find your lost pet?
                     </Title>
-                    <Paragraph style={{ fontSize: '16px', marginBottom: '24px' }}>
+                    <Paragraph className={styles.ctaDescription}>
                       Create an account today and get access to our powerful pet finding tools and supportive community.
                     </Paragraph>
-                    <Space size="middle" wrap style={{ justifyContent: 'flex-start' }}>
+                    <Space size="middle" wrap className={styles.ctaButtonsContainer}>
                       <Link to="/register">
                         <Button 
                           size="large" 
                           type="primary"
-                          style={{ 
-                            background: `linear-gradient(90deg, ${colors.accentOrange}, ${colors.deepOrange})`,
-                            borderColor: colors.accentOrange,
-                            height: '50px',
-                            borderRadius: '30px',
-                            boxShadow: '0 6px 16px rgba(255, 127, 80, 0.3)'
-                          }}
+                          className={styles.primaryButtonGradient}
                         >
                           Sign Up Now
                         </Button>
@@ -848,13 +642,7 @@ const HomePage = () => {
                       <Link to="/login">
                         <Button 
                           size="large"
-                          style={{ 
-                            borderRadius: '30px',
-                            height: '50px',
-                            borderWidth: '2px',
-                            borderColor: colors.accentBlue,
-                            color: colors.accentBlue
-                          }}
+                          className={styles.secondaryButtonCustom}
                         >
                           Sign In
                         </Button>
@@ -884,13 +672,13 @@ const HomePage = () => {
                   PetFinder <span>🐾</span>
                 </Link>
               </div>
-              <Paragraph style={{ color: 'rgba(255, 255, 255, 0.65)' }}>
+              <Paragraph className={styles.footerParagraph}>
                 Helping reunite lost pets with their families through our community-driven platform.
               </Paragraph>
             </Col>
             
             <Col xs={24} sm={12} md={8} lg={6}>
-              <Title level={4} style={{ color: '#fff', marginBottom: '20px' }}>Quick Links</Title>
+              <Title level={4} className={styles.footerHeading}>Quick Links</Title>
               <ul className={styles.footerNav}>
                 <li><Link to="/" className={styles.footerNavLink}>Home</Link></li>
                 <li><Link to="/dashboard" className={styles.footerNavLink}>Dashboard</Link></li>
@@ -900,7 +688,7 @@ const HomePage = () => {
             </Col>
             
             <Col xs={24} sm={12} md={8} lg={6}>
-              <Title level={4} style={{ color: '#fff', marginBottom: '20px' }}>Resources</Title>
+              <Title level={4} className={styles.footerHeading}>Resources</Title>
               <ul className={styles.footerNav}>
                 <li><a href="#" className={styles.footerNavLink}>Pet Care Tips</a></li>
                 <li><a href="#" className={styles.footerNavLink}>Lost Pet Guide</a></li>
@@ -910,11 +698,11 @@ const HomePage = () => {
             </Col>
             
             <Col xs={24} sm={12} md={8} lg={6}>
-              <Title level={4} style={{ color: '#fff', marginBottom: '20px' }}>Contact Us</Title>
+              <Title level={4} className={styles.footerHeading}>Contact Us</Title>
               <ul className={styles.footerNav}>
-                <li style={{ color: 'rgba(255, 255, 255, 0.65)' }}>Email: support@petfinder.com</li>
-                <li style={{ color: 'rgba(255, 255, 255, 0.65)' }}>Phone: (123) 456-7890</li>
-                <li style={{ color: 'rgba(255, 255, 255, 0.65)' }}>Address: 123 Pet Street, Animal City</li>
+                <li className={styles.contactItem}>Email: support@petfinder.com</li>
+                <li className={styles.contactItem}>Phone: (123) 456-7890</li>
+                <li className={styles.contactItem}>Address: 123 Pet Street, Animal City</li>
               </ul>
             </Col>
           </Row>
