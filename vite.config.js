@@ -17,8 +17,8 @@ export default defineConfig({
     // Add history API fallback for client-side routing
     historyApiFallback: true
   },
-  // Add base URL configuration for proper asset paths
-  base: './',
+  // Set base to root path for proper asset loading
+  base: '/',
   build: {
     // Output directory for production build
     outDir: 'dist',
