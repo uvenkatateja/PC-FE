@@ -14,6 +14,9 @@ import DashboardPage from './pages/DashboardPage';
 import NotFoundPage from './pages/NotFoundPage';
 import Navbar from './pages/Navbar/Navbar';
 
+
+
+
 const { Content } = Layout;
 
 // Centralized loading component with dog animation
